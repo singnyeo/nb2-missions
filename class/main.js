@@ -1,3 +1,5 @@
+import { getArticle, getArticleList, createArticle, patchArticle, deleteArticle} from "../ArticleService.js";
+
 class Product {
     constructor(name, description, price, tags, images, favoriteCount) {
         this.name = name

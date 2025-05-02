@@ -1,7 +1,7 @@
 const BASE_URL = "https://panda-market-api-crud.vercel.app/articles";
 
 
-async function getArticleList({ page, pageSize, keyword }) {
+export async function getArticleList({ page, pageSize, keyword }) {
   const query = new URLSearchParams({ page, pageSize, keyword }).toString();
   const res = await fetch(`${BASE_URL}?${query}`, {
     method : 'GET'
@@ -10,7 +10,7 @@ async function getArticleList({ page, pageSize, keyword }) {
 }
 
 
-async function getArticle(id) {
+export async function getArticle(id) {
   const res = await fetch(`${BASE_URL}/${id}`, {
     method : 'GET'
   });
@@ -18,7 +18,7 @@ async function getArticle(id) {
 }
 
 
-async function createArticle({ title, content, image }) {
+export async function createArticle({ title, content, image }) {
   const res = await fetch(BASE_URL, {
     method: "POST",
     headers: {
@@ -30,7 +30,7 @@ async function createArticle({ title, content, image }) {
 }
 
 
-async function patchArticle(id) {
+export async function patchArticle(id) {
   const res = await fetch(`${BASE_URL}/${id}`, {
     method: "PATCH",
     headers: {
@@ -41,7 +41,7 @@ async function patchArticle(id) {
 }
 
 
-async function deleteArticle(id) {
+export async function deleteArticle(id) {
   const res = await fetch(`${BASE_URL}/${id}`, {
     method: "DELETE",
   });
