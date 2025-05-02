@@ -6,7 +6,8 @@ export function getArticleList({ page, pageSize, keyword }) {
     method: 'GET' 
   })
     .then(res => {
-      if (!res.ok) throw new Error('API 에러');
+      if (!res.ok) 
+      throw new Error('API 에러');
       return res.json();
     })
     .catch(error => {
@@ -19,7 +20,8 @@ export function getArticle(id) {
     method: 'GET' 
   })
     .then(res => {
-      if (!res.ok) throw new Error('API 에러');
+      if (!res.ok) 
+      throw new Error('API 에러');
       return res.json();
     })
     .catch(error => {
@@ -36,7 +38,8 @@ export function createArticle({ title, content, image }) {
     body: JSON.stringify({ title, content, image }),
   })
     .then(res => {
-      if (!res.ok) throw new Error('API 에러');
+      if (!res.ok) 
+      throw new Error('API 에러');
       return res.json();
     })
     .catch(error => {
@@ -52,7 +55,8 @@ export function patchArticle(id) {
     },
   })
     .then(res => {
-      if (!res.ok) throw new Error('API 에러');
+      if (!res.ok) 
+      throw new Error('API 에러');
       return res.json();
     })
     .catch(error => {
@@ -65,7 +69,8 @@ export function deleteArticle(id) {
     method: "DELETE" 
   })
     .then(res => {
-      if (!res.ok) throw new Error('API 에러');
+      if (!res.ok) 
+      throw new Error('API 에러');
       return res.json();
     })
     .catch(error => {
