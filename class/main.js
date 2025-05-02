@@ -1,4 +1,5 @@
-import { getArticle, getArticleList, createArticle, patchArticle, deleteArticle} from "../ArticleService.js";
+import { getProductList } from "../ArticleService.js";
+
 
 class Product {
     constructor(name, description, price, tags, images, favoriteCount) {
@@ -33,3 +34,8 @@ class Article {
         this.likeCount += 1
     }
 }
+
+const products = []
+getProductList({
+    
+})
