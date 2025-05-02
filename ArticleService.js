@@ -62,7 +62,9 @@ export async function patchArticle(id) {
 
 export async function deleteArticle(id) {
   try {
-    const res = await fetch(`${BASE_URL}/${id}`, { method: "DELETE" });
+    const res = await fetch(`${BASE_URL}/${id}`, { 
+      method: "DELETE" 
+    });
     if (!res.ok) {
       throw new Error('API 에러');
     }
