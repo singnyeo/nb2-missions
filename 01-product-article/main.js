@@ -1,4 +1,4 @@
-import { getProductList } from "../ArticleService.js";
+import { getProductList } from "./ArticleService.js";
 
 
 class Product {
