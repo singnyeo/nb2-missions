@@ -22,4 +22,24 @@ router.get('/list', async (req, res, next) => {
   const products = await db.product.findMany();
   res.json(products);
 });
+
+//상품 수정 API
+router.patch('/:id', async (req, res, next) => {
+  try {
+    const productId = parseInt(req.params.id);
+    const { name, description, price, tag } = req.body;
+
+    const updatedProduct = await db.product.update({
+      where: { id: productId },
+      data: { name, description, price, tag },
+    });
+
+    res.json(updatedProduct);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// //상품 삭제 API
+// router.delete()
 module.exports = router;
