@@ -9,14 +9,11 @@ var router = express.Router();
 router.post('/create', async (req, res, next) => {
   try {
     assert(req.body, CreateDto);
-
     const { name, description, price, tags } = req.body;
-
-    const product = await db.product.create({
-      data: { name, description, price, tags },
+    const productPost = await db.product.create({
+      data : { name, description, price, tags },
     });
-
-    res.json({ id: product.id });
+    res.json({ id: productPost.id });
   } catch (error) {
     next(error);
   }
@@ -26,8 +23,8 @@ router.post('/create', async (req, res, next) => {
 //상품 상세 조회 API
 router.get('/list', async (req, res, next) => {
   try {
-    const products = await db.product.findMany();
-    res.json(products);
+    const productGet = await db.product.findMany();
+    res.json(productGet);
   } catch (error) {
     next(error);
   }
@@ -37,14 +34,12 @@ router.get('/list', async (req, res, next) => {
 //상품 수정 API
 router.patch('/:id', async (req, res, next) => {
   try {
-    const productPatch = parseInt(req.params.id);
-    const { name, description, price, tag } = req.body;
-
+    const productId = parseInt(req.params.id);
+    const { name, description, price, tags } = req.body;
     const patchProduct = await db.product.update({
-      where: { id: productPatch },
-      data: { name, description, price, tag },
+      where : { id: productId },
+      data : { name, description, price, tags },
     });
-
     res.json(patchProduct);
   } catch (error) {
     next(error);
@@ -52,7 +47,17 @@ router.patch('/:id', async (req, res, next) => {
 });
 
 // 상품 삭제 API
-// router.delete()
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const productId = parseInt(req.params.id); 
+    const productDelete = await db.product.delete({ 
+      where : { id : productId },
+    });
+    res.json(productDelete);
+  } catch (error) {
+    next(error);
+  }
+})
 
 //상품 목록 조회 API
 module.exports = router;
