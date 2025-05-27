@@ -38,4 +38,21 @@ router.get("/article", async (req, res) => {
   }
 });
 
+// 게시글 수정
+router.patch("/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const { title, content } = req.body;
+
+    const article = await db.article.update({
+      where: { id },
+      data: { title, content },
+    });
+
+    res.status(200).json(article);
+  } catch (error) {
+    res.status(400).json({ error: "수정 실패" });
+  }
+});
+
 module.exports = router;
