@@ -40,5 +40,20 @@ router.patch('/:commentId', async (req, res) => {
   }
 });
 
+// 댓글 삭제
+router.delete('/:commentId', async (req, res) => {
+  try {
+    const commentId = parseInt(req.params.commentId);
+
+    await db.comment.delete({
+      where: { id: commentId },
+    });
+
+    res.status(204).send();
+  } catch (error) {
+    res.status(400).json({ error: '댓글 삭제 실패' });
+  }
+});
+
 
 module.exports = router;
