@@ -21,4 +21,21 @@ router.post("/create", async (req, res) => {
   }
 });
 
+// 게시글 상세 조회
+router.get("/article", async (req, res) => {
+  try {
+    const article = await db.article.findMany({
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        createdAt: true,
+      },
+    });
+    res.status(200).json(article);
+  } catch (error) {
+    res.status(500).json({ error: "서버 에러 발생" });
+  }
+});
+
 module.exports = router;
