@@ -55,5 +55,35 @@ router.delete('/:commentId', async (req, res) => {
   }
 });
 
+router.get('/list', async (req, res) => {
+  try {
+    const productId = parseInt(req.params.productId);
+    const cursorId = req.query.cursor ? parseInt(req.query.cursor) : undefined;
+    const take = parseInt(req.query.take) || 10;
+
+    const comments = await db.comment.findMany({
+      where: { productId },
+      take: take + 1,
+      cursor: cursorId ? { id: cursorId } : undefined,
+      skip: cursorId ? 1 : 0,
+      orderBy: { id: 'asc' },
+      select: {
+        id: true,
+        content: true,
+        createdAt: true,
+      },
+    });
+
+    let nextCursor = null;
+    if (comments.length > take) {
+      const nextItem = comments.pop();
+      nextCursor = nextItem.id;
+    }
+
+    res.status(200).json({ comments, nextCursor });
+  } catch (error) {
+    res.status(500).json({ error: '댓글 목록 조회 실패' });
+  }
+});
 
 module.exports = router;
