@@ -14,16 +14,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id             Int        @id @default(autoincrement())
-  name           String
-  email          String     @unique
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
-  article        Article[]
-  comment        Comment[]
-}
-
 model Product {
   id          Int      @id @default(autoincrement())
   name        String
@@ -33,7 +23,7 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   article     Article[]
-  comment    Comment[]
+  comment     Comment[]
 }
 
 model Article {
@@ -42,9 +32,7 @@ model Article {
   content    String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  userId     Int?
   productId  Int?
-  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   product    Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
   comment    Comment[]
 }
@@ -54,10 +42,8 @@ model Comment {
   content    String  
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  userId     Int?     
   articleId  Int?
   productId  Int?   
-  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   article    Article? @relation(fields: [articleId], references: [id], onDelete: SetNull)
   product    Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
 }
