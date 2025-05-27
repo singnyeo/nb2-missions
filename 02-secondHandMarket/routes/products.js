@@ -21,7 +21,7 @@ router.post("/create", async (req, res) => {
   }
 });
 
-// 상품 전체 조회
+// 상품 상세 조회
 router.get("/product", async (req, res) => {
   try {
     const products = await db.product.findMany();
