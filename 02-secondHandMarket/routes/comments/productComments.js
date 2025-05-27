@@ -1,7 +1,7 @@
 const express = require("express");
 const { db } = require("../../utils/db");
 
-var router = express.Router();
+var router = express.Router(({ mergeParams: true }));
 
 // 댓글 등록
 router.post("/", async (req, res) => {
@@ -55,6 +55,7 @@ router.delete('/:commentId', async (req, res) => {
   }
 });
 
+// 댓글 목록 조회
 router.get('/list', async (req, res) => {
   try {
     const productId = parseInt(req.params.productId);

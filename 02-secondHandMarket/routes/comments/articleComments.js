@@ -63,10 +63,7 @@ router.get('/list', async (req, res) => {
     const take = parseInt(req.query.take) || 10;
 
     const comments = await db.comment.findMany({
-      where: { 
-        articleId,
-        productId: null,
-      },
+      where: { articleId },
       take: take + 1,
       cursor: cursorId ? { id: cursorId } : undefined,
       skip: cursorId ? 1 : 0,
