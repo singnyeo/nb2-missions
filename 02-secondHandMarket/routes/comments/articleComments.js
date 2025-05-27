@@ -1,7 +1,7 @@
 const express = require("express");
 const { db } = require("../../utils/db");
 
-var router = express.Router(({ mergeParams: true }));
+var router = express.Router({ mergeParams: true });
 
 // 댓글 등록
 router.post("/", async (req, res) => {
@@ -20,13 +20,13 @@ router.post("/", async (req, res) => {
 });
 
 // 댓글 수정
-router.patch('/:commentId', async (req, res) => {
+router.patch("/:commentId", async (req, res) => {
   try {
     const commentId = parseInt(req.params.commentId);
     const { content } = req.body;
 
     if (!content) {
-      return res.status(400).json({ error: '수정 할 댓글이 존재하지 않음' });
+      return res.status(400).json({ error: "수정 할 댓글이 존재하지 않음" });
     }
 
     const updatedComment = await db.comment.update({
@@ -36,12 +36,12 @@ router.patch('/:commentId', async (req, res) => {
 
     res.status(200).json(updatedComment);
   } catch (error) {
-    res.status(400).json({ error: '댓글 수정 실패' });
+    res.status(400).json({ error: "댓글 수정 실패" });
   }
 });
 
 // 댓글 삭제
-router.delete('/:commentId', async (req, res) => {
+router.delete("/:commentId", async (req, res) => {
   try {
     const commentId = parseInt(req.params.commentId);
 
@@ -51,12 +51,12 @@ router.delete('/:commentId', async (req, res) => {
 
     res.status(204).send();
   } catch (error) {
-    res.status(400).json({ error: '댓글 삭제 실패' });
+    res.status(400).json({ error: "댓글 삭제 실패" });
   }
 });
 
 // 댓글 목록 조회
-router.get('/list', async (req, res) => {
+router.get("/list", async (req, res) => {
   try {
     const articleId = parseInt(req.params.articleId);
     const cursorId = req.query.cursor ? parseInt(req.query.cursor) : undefined;
@@ -67,7 +67,7 @@ router.get('/list', async (req, res) => {
       take: take + 1,
       cursor: cursorId ? { id: cursorId } : undefined,
       skip: cursorId ? 1 : 0,
-      orderBy: { id: 'asc' },
+      orderBy: { id: "asc" },
       select: {
         id: true,
         content: true,
@@ -83,7 +83,7 @@ router.get('/list', async (req, res) => {
 
     res.status(200).json({ comments, nextCursor });
   } catch (error) {
-    res.status(500).json({ error: '댓글 목록 조회 실패' });
+    res.status(500).json({ error: "댓글 목록 조회 실패" });
   }
 });
 
