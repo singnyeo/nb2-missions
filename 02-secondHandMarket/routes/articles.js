@@ -55,4 +55,17 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+// 게시글 삭제
+router.delete("/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    await db.article.delete({ where: { id } });
+    res.status(204).send(); // 204 No Content
+  } catch (error) {
+    res.status(400).json({ error: "삭제 실패" });
+  }
+});
+
+// 게시글 목록 조회
+
 module.exports = router;
