@@ -53,7 +53,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     await db.product.delete({ where: { id } });
-    res.status(204).send(); // 204 No Content
+    res.status(204).send();
   } catch (error) {
     res.status(400).json({ error: "삭제 실패" });
   }

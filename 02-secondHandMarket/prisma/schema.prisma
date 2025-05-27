@@ -33,6 +33,7 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   article     Article[]
+  comment    Comment[]
 }
 
 model Article {
@@ -54,7 +55,9 @@ model Comment {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   userId     Int?     
-  articleId  Int?   
+  articleId  Int?
+  productId  Int?   
   user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   article    Article? @relation(fields: [articleId], references: [id], onDelete: SetNull)
+  product    Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
 }
