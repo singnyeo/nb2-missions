@@ -3,7 +3,7 @@ const { db } = require("../../utils/db");
 
 var router = express.Router();
 
-// product 댓글 등록
+// 댓글 등록
 router.post("/", async (req, res) => {
   try {
     const { content } = req.body;
@@ -18,5 +18,27 @@ router.post("/", async (req, res) => {
     res.status(400).json({ error: "댓글 등록 실패" });
   }
 });
+
+// 댓글 수정
+router.patch('/:commentId', async (req, res) => {
+  try {
+    const commentId = parseInt(req.params.commentId);
+    const { content } = req.body;
+
+    if (!content) {
+      return res.status(400).json({ error: '수정 할 댓글이 존재하지 않음' });
+    }
+
+    const updatedComment = await db.comment.update({
+      where: { id: commentId },
+      data: { content },
+    });
+
+    res.status(200).json(updatedComment);
+  } catch (error) {
+    res.status(400).json({ error: '댓글 수정 실패' });
+  }
+});
+
 
 module.exports = router;
