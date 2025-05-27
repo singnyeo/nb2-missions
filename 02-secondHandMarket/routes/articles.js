@@ -67,5 +67,37 @@ router.delete("/:id", async (req, res) => {
 });
 
 // 게시글 목록 조회
+router.get("/list", async (req, res) => {
+  try {
+    const offset = parseInt(req.query.offset) || 0;
+    const limit = parseInt(req.query.limit) || 10;
+    const keyword = req.query.keyword || "";
+    const sort = req.query.sort || "recent";
+
+    const article = await db.article.findMany({
+      skip: offset,
+      take: limit,
+      where: {
+        OR: [
+          { title: { contains: keyword } },
+          { content: { contains: keyword } },
+        ],
+      },
+      orderBy: {
+        createdAt: sort === "recent" ? "desc" : "asc",
+      },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        createdAt: true,
+      },
+    });
+
+    res.status(200).json(article);
+  } catch (error) {
+    res.status(500).json({ error: "서버 에러 발생" });
+  }
+});
 
 module.exports = router;
