@@ -3,7 +3,7 @@ const { assert } = require("superstruct");
 const { db } = require("../utils/db");
 const { CreateDto } = require("../dtos/article.dto");
 
-var router = express.Router();
+var router = express.Router({ mergeParams: true });
 
 // 게시글 등록
 router.post("/create", async (req, res) => {
