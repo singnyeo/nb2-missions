@@ -7,6 +7,8 @@ const cors = require("cors");
 const productCommentRouter = require("./routes/comments/productComments");
 const articleCommentRouter = require("./routes/comments/articleComments");
 const filesRouter = require("./routes/files");
+const productRouter = require("./routes/products");
+const articlesRouter = require("./routes/articles");
 const errorHandler = require("./utils/errorHandler");
 
 var app = express();
@@ -15,6 +17,8 @@ app.use(cors());
 app.use(logger);
 app.use(express.json());
 
+app.use("/products",productRouter);
+app.use("/articles",articlesRouter);
 app.use("/products/:productId/comments", productCommentRouter);
 app.use("/articles/:articleId/comments", articleCommentRouter);
 app.use("/files", filesRouter);
