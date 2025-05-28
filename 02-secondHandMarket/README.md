@@ -34,7 +34,7 @@
 - **라우트 중복 제거**(app.route, express.Router 사용)  
 - **환경 변수 관리(.env) 및 CORS 설정** 
 - 데이터베이스 관계 설정(onDelete 포함) 및 시딩 코드 작성  
-🔗 **배포 링크**: [https://nb2-missions-sprint3.onrender.com](https://nb2-missions-sprint3.onrender.com)
+🔗 **배포 링크** : [https://nb2-missions-sprint3.onrender.com](https://nb2-missions-sprint3.onrender.com)
 # Database Model
 ```mermaid
 erDiagram
