@@ -4,8 +4,6 @@ var logger = require("./utils/logger");
 var path = require("path");
 
 const cors = require("cors");
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 const productCommentRouter = require("./routes/comments/productComments");
 const articleCommentRouter = require("./routes/comments/articleComments");
 const filesRouter = require("./routes/files");
@@ -17,8 +15,6 @@ app.use(cors());
 app.use(logger);
 app.use(express.json());
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.use("/products/:productId/comments", productCommentRouter);
 app.use("/articles/:articleId/comments", articleCommentRouter);
 app.use("/files", filesRouter);
