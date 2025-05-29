@@ -11,6 +11,7 @@
 - 상품 및 게시글 등록/조회/수정/삭제 API  
 - 댓글 기능 + cursor 페이지네이션  
 - 이미지 업로드, 유효성 검사, 에러 핸들러 구현  
-- `.env` 환경 설정, CORS, 시딩 처리 등 실전 환경 구성  
+- `.env` 환경 설정, CORS, 시딩 처리 등 실전 환경 구성
+- 🔗 배포 링크 : https://nb2-missions-sprint3.onrender.com
 
 
