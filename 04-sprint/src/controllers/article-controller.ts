@@ -59,17 +59,20 @@ export async function getArticleById(req: Request, res: Response) {
       },
     });
 
-    if (!article) return res.status(404).json({ message: '게시글을 찾을 수 없습니다.' });
+    if (!article) {
+      return res.status(404).json({ message: '게시글을 찾을 수 없습니다.' });
+    }
 
     const isLiked = userId
-  ? article.likes.some((like: { userId: number }) => like.userId === userId)
-  : false;
+      ? article.likes.some(like => like.userId === userId)
+      : false;
+
+    const { likes, ...articleWithoutLikes } = article;
 
     const response = {
-      ...article,
+      ...articleWithoutLikes,
       isLiked,
     };
-    delete response.likes;
 
     res.status(200).json(response);
   } catch (error) {
@@ -77,6 +80,7 @@ export async function getArticleById(req: Request, res: Response) {
     res.status(500).json({ message: '서버 에러' });
   }
 }
+
 
 export async function updateArticle(req: Request, res: Response) {
   const articleId = parseInt(req.params.id);

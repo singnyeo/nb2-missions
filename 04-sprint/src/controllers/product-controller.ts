@@ -89,19 +89,20 @@ export async function getProductById(req: Request, res: Response) {
       },
     });
 
-    if (!product) return res.status(404).json({ message: '상품을 찾을 수 없습니다.' });
+    if (!product) {
+      return res.status(404).json({ message: '상품을 찾을 수 없습니다.' });
+    }
 
     const isLiked = userId
-  ? product.likes.some((like: { userId: number }) => like.userId === userId)
-  : false;
-
+      ? product.likes.some(like => like.userId === userId)
+      : false;
+      
+    const { likes, ...productWithoutLikes } = product;
 
     const response = {
-      ...product,
+      ...productWithoutLikes,
       isLiked,
     };
-
-    delete response.likes;
 
     res.status(200).json(response);
   } catch (error) {
