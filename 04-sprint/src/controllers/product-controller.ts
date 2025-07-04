@@ -1,6 +1,7 @@
-import prisma from '../lib/prisma.js';
+import prisma from '../lib/prisma';
+import { Request, Response } from 'express';
 
-export async function createProduct(req, res) {
+export async function createProduct(req: Request, res: Response) {
   const { name, description, price, tags } = req.body;
 
   if (!name || !description || !price) {
@@ -24,7 +25,7 @@ export async function createProduct(req, res) {
   }
 }
 
-export async function updateProduct(req, res) {
+export async function updateProduct(req: Request, res: Response) {
   const productId = parseInt(req.params.id);
   const { name, description, price, tags } = req.body;
 
@@ -54,7 +55,7 @@ export async function updateProduct(req, res) {
   }
 }
 
-export async function deleteProduct(req, res) {
+export async function deleteProduct(req: Request, res: Response) {
   const productId = parseInt(req.params.id);
 
   try {
@@ -75,7 +76,7 @@ export async function deleteProduct(req, res) {
   }
 }
 
-export async function getProductById(req, res) {
+export async function getProductById(req: Request, res: Response) {
   const productId = parseInt(req.params.id);
   const userId = req.user?.id;
 
@@ -90,7 +91,10 @@ export async function getProductById(req, res) {
 
     if (!product) return res.status(404).json({ message: '상품을 찾을 수 없습니다.' });
 
-    const isLiked = userId ? product.likes.some((like) => like.userId === userId) : false;
+    const isLiked = userId
+  ? product.likes.some((like: { userId: number }) => like.userId === userId)
+  : false;
+
 
     const response = {
       ...product,

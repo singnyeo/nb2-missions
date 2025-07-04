@@ -1,6 +1,6 @@
 import express from 'express';
-import authenticate from '../middlewares/authenticate.js';
-import { toggleProductLike, toggleArticleLike, } from '../controllers/like-controller.js';
+import authenticate from '../middlewares/authenticate';
+import { toggleProductLike, toggleArticleLike, } from '../controllers/like-controller';
 
 const router = express.Router();
 

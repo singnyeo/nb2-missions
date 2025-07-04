@@ -1,9 +1,10 @@
 import bcrypt from 'bcrypt';
-import prisma from '../lib/prisma.js';
-import { generateTokens } from '../lib/token.js';
+import prisma from '../lib/prisma';
+import { Request, Response } from 'express';
+import { generateTokens, verifyRefreshToken } from '../lib/token';
 import { ACCESS_TOKEN_COOKIE_NAME, REFRESH_TOKEN_COOKIE_NAME, NODE_ENV } from '../lib/constants.js';
 
-export async function register(req, res) {
+export async function register(req: Request, res: Response) {
   const { email, nickname, password, image } = req.body;
 
   if (!email || !nickname || !password || !image) {
@@ -34,7 +35,7 @@ export async function register(req, res) {
   }
 }
 
-export async function login(req, res) {
+export async function login(req: Request, res: Response) {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -73,7 +74,7 @@ export async function login(req, res) {
   }
 }
 
-export async function refreshTokens(req, res) {
+export async function refreshTokens(req: Request, res: Response) {
   const { refreshToken } = req.body;
 
   if (!refreshToken) {
@@ -112,7 +113,7 @@ export async function refreshTokens(req, res) {
   }
 }
 
-export async function logout(req, res) {
+export async function logout(req: Request, res: Response) {
   res.clearCookie(ACCESS_TOKEN_COOKIE_NAME);
   res.clearCookie(REFRESH_TOKEN_COOKIE_NAME);
   res.status(200).json({ message: '로그아웃 성공' });

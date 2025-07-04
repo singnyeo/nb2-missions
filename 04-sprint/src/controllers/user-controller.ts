@@ -1,7 +1,8 @@
 import bcrypt from 'bcrypt';
-import prisma from '../lib/prisma.js';
+import prisma from '../lib/prisma';
+import { Request, Response } from 'express';
 
-export async function getUserProfile(req, res) {
+export async function getUserProfile(req: Request, res: Response) {
   try {
     const user = await prisma.user.findUnique({
       where: { id: req.user.id },
@@ -23,7 +24,7 @@ export async function getUserProfile(req, res) {
   }
 }
 
-export async function updateUserProfile(req, res) {
+export async function updateUserProfile(req: Request, res: Response) {
   const { nickname, image, currentPassword, newPassword } = req.body;
 
   try {
@@ -40,11 +41,18 @@ export async function updateUserProfile(req, res) {
       }
     }
 
-    const dataToUpdate = { nickname, image };
+    type UpdateData = {
+      nickname?: string;
+      image?: string;
+      password?: string;
+    };
+
+    const dataToUpdate: UpdateData = { nickname, image };
+
     if (newPassword) {
       dataToUpdate.password = await bcrypt.hash(newPassword, 10);
+    
     }
-
     const updatedUser = await prisma.user.update({
       where: { id: req.user.id },
       data: dataToUpdate,
@@ -65,7 +73,7 @@ export async function updateUserProfile(req, res) {
   }
 }
 
-export async function getMyProducts(req, res) {
+export async function getMyProducts(req: Request, res: Response) {
   try {
     const products = await prisma.product.findMany({
       where: { userId: req.user.id },

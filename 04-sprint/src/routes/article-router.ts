@@ -1,13 +1,13 @@
 import express from 'express';
-import authenticate from '../middlewares/authenticate.js';
+import authenticate from '../middlewares/authenticate';
 import {
   createArticle,
   getArticles,
   getArticleById,
   updateArticle,
   deleteArticle
-} from '../controllers/article-controller.js';
-import { getLikedArticles } from '../controllers/like-controller.js';
+} from '../controllers/article-controller';
+import { getLikedArticles } from '../controllers/like-controller';
 
 const router = express.Router();
 router.get('/articles/liked', authenticate, getLikedArticles);

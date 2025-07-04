@@ -1,10 +1,10 @@
 import express from 'express';
-import authenticate from '../middlewares/authenticate.js';
+import authenticate from '../middlewares/authenticate';
 import {
   getUserProfile,
   updateUserProfile,
   getMyProducts,
-} from '../controllers/user-controller.js';
+} from '../controllers/user-controller';
 
 const router = express.Router();
 

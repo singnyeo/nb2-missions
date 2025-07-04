@@ -1,6 +1,7 @@
-import prisma from '../lib/prisma.js';
+import prisma from '../lib/prisma';
+import { Request, Response } from 'express';
 
-export async function toggleProductLike(req, res) {
+export async function toggleProductLike(req: Request, res: Response) {
   const productId = parseInt(req.params.id);
   const userId = req.user.id;
 
@@ -28,7 +29,7 @@ export async function toggleProductLike(req, res) {
   }
 }
 
-export async function toggleArticleLike(req, res) {
+export async function toggleArticleLike(req: Request, res: Response) {
   const articleId = parseInt(req.params.id);
   const userId = req.user.id;
 
@@ -56,7 +57,7 @@ export async function toggleArticleLike(req, res) {
   }
 }
 
-export async function getLikedProducts(req, res) {
+export async function getLikedProducts(req: Request, res: Response) {
   const userId = req.user.id;
 
   try {
@@ -66,7 +67,9 @@ export async function getLikedProducts(req, res) {
       orderBy: { createdAt: 'desc' },
     });
 
-    const products = likedProducts.map(like => like.product).filter(Boolean);
+    const products = likedProducts
+    .map((like: { product: any }) => like.product)
+    .filter(Boolean);
     res.status(200).json(products);
   } catch (error) {
     console.error('좋아요 누른 상품 목록 조회 실패:', error);
@@ -74,7 +77,7 @@ export async function getLikedProducts(req, res) {
   }
 }
 
-export async function getLikedArticles(req, res) {
+export async function getLikedArticles(req: Request, res: Response) {
   const userId = req.user.id;
 
   try {
@@ -84,7 +87,9 @@ export async function getLikedArticles(req, res) {
       orderBy: { createdAt: 'desc' },
     });
 
-    const articles = likedArticles.map(like => like.article).filter(Boolean);
+    const articles = likedArticles
+    .map((like: { article: any }) => like.article)
+    .filter(Boolean);
     res.status(200).json(articles);
   } catch (error) {
     console.error('좋아요 누른 게시글 목록 조회 실패:', error);

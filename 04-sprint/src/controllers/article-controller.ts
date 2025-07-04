@@ -1,6 +1,7 @@
-import prisma from '../lib/prisma.js';
+import prisma from '../lib/prisma';
+import { Request, Response } from 'express';
 
-export async function createArticle(req, res) {
+export async function createArticle(req: Request, res: Response) {
   const { title, content, productId } = req.body;
 
   if (!title || !content) {
@@ -23,7 +24,7 @@ export async function createArticle(req, res) {
   }
 }
 
-export async function getArticles(req, res) {
+export async function getArticles(req: Request, res: Response) {
   try {
     const articles = await prisma.article.findMany({
       include: {
@@ -43,7 +44,7 @@ export async function getArticles(req, res) {
   }
 }
 
-export async function getArticleById(req, res) {
+export async function getArticleById(req: Request, res: Response) {
   const articleId = parseInt(req.params.id);
   const userId = req.user?.id;
 
@@ -60,7 +61,9 @@ export async function getArticleById(req, res) {
 
     if (!article) return res.status(404).json({ message: '게시글을 찾을 수 없습니다.' });
 
-    const isLiked = userId ? article.likes.some(like => like.userId === userId) : false;
+    const isLiked = userId
+  ? article.likes.some((like: { userId: number }) => like.userId === userId)
+  : false;
 
     const response = {
       ...article,
@@ -75,7 +78,7 @@ export async function getArticleById(req, res) {
   }
 }
 
-export async function updateArticle(req, res) {
+export async function updateArticle(req: Request, res: Response) {
   const articleId = parseInt(req.params.id);
   const { title, content } = req.body;
 
@@ -101,7 +104,7 @@ export async function updateArticle(req, res) {
   }
 }
 
-export async function deleteArticle(req, res) {
+export async function deleteArticle(req: Request, res: Response) {
   const articleId = parseInt(req.params.id);
 
   try {

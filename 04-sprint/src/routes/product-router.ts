@@ -4,9 +4,9 @@ import {
   updateProduct,
   deleteProduct,
   getProductById,
-} from '../controllers/product-controller.js';
-import { getLikedProducts } from '../controllers/like-controller.js';
-import authenticate from '../middlewares/authenticate.js';
+} from '../controllers/product-controller';
+import { getLikedProducts } from '../controllers/like-controller';
+import authenticate from '../middlewares/authenticate';
 
 const router = express.Router();
 router.get('/products/liked', authenticate, getLikedProducts);
