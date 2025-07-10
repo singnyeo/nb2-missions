@@ -1,26 +1,15 @@
-import bcrypt from 'bcrypt';
-import prisma from '../lib/prisma';
 import { Request, Response } from 'express';
+import { UserService } from '../service/user-service';
+
+const userService = new UserService();
 
 export async function getUserProfile(req: Request, res: Response) {
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: req.user.id },
-      select: {
-        id: true,
-        email: true,
-        nickname: true,
-        image: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
-    if (!user) return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
-
+    const user = await userService.getUserProfile(req.user.id);
     res.status(200).json(user);
-  } catch (error) {
+  } catch (error: any) {
     console.error('유저 정보 조회 실패:', error);
-    res.status(500).json({ message: '서버 에러. 잠시 후 다시 시도해주세요.' });
+    res.status(500).json({ message: error.message || '서버 에러. 잠시 후 다시 시도해주세요.' });
   }
 }
 
@@ -28,60 +17,26 @@ export async function updateUserProfile(req: Request, res: Response) {
   const { nickname, image, currentPassword, newPassword } = req.body;
 
   try {
-    const user = await prisma.user.findUnique({ where: { id: req.user.id } });
-    if (!user) return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
-
-    if (newPassword) {
-      if (!currentPassword) {
-        return res.status(400).json({ message: '비밀번호 변경 시 현재 비밀번호를 입력해주세요.' });
-      }
-      const isMatch = await bcrypt.compare(currentPassword, user.password);
-      if (!isMatch) {
-        return res.status(401).json({ message: '현재 비밀번호가 올바르지 않습니다.' });
-      }
-    }
-
-    type UpdateData = {
-      nickname?: string;
-      image?: string;
-      password?: string;
-    };
-
-    const dataToUpdate: UpdateData = { nickname, image };
-
-    if (newPassword) {
-      dataToUpdate.password = await bcrypt.hash(newPassword, 10);
-    
-    }
-    const updatedUser = await prisma.user.update({
-      where: { id: req.user.id },
-      data: dataToUpdate,
-      select: {
-        id: true,
-        email: true,
-        nickname: true,
-        image: true,
-        createdAt: true,
-        updatedAt: true,
-      },
+    const updated = await userService.updateUserProfile(req.user.id, {
+      nickname,
+      image,
+      currentPassword,
+      newPassword,
     });
 
-    res.status(200).json({ message: '유저 정보가 성공적으로 수정되었습니다.', user: updatedUser });
-  } catch (error) {
+    res.status(200).json({ message: '유저 정보가 성공적으로 수정되었습니다.', user: updated });
+  } catch (error: any) {
     console.error('유저 정보 수정 실패:', error);
-    res.status(500).json({ message: '서버 에러. 잠시 후 다시 시도해주세요.' });
+    res.status(400).json({ message: error.message || '서버 에러. 잠시 후 다시 시도해주세요.' });
   }
 }
 
 export async function getMyProducts(req: Request, res: Response) {
   try {
-    const products = await prisma.product.findMany({
-      where: { userId: req.user.id },
-      orderBy: { createdAt: 'desc' },
-    });
+    const products = await userService.getMyProducts(req.user.id);
     res.status(200).json(products);
-  } catch (error) {
+  } catch (error: any) {
     console.error('내 상품 목록 조회 실패:', error);
-    res.status(500).json({ message: '서버 에러. 잠시 후 다시 시도해주세요.' });
+    res.status(500).json({ message: error.message || '서버 에러. 잠시 후 다시 시도해주세요.' });
   }
 }
