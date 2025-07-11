@@ -23,3 +23,12 @@
 - 좋아요 여부(`isLiked`) 포함 응답 및 좋아요한 목록 조회  
 - Prisma 관계형 설계 및 onDelete 적용  
 - 인증 미들웨어, 인가 처리, 유저 기반 권한 검증 구현
+
+### 4️⃣ 타입스크립트 마이그레이션 및 Layered Architecture 적용
+> 기존 Express.js 프로젝트를 타입스크립트로 마이그레이션하고, Controller/Service/Repository 계층 분리 적용
+- tsconfig.json 파일 생성 및 옵션 설정 (예: outDir)
+- 타입스크립트 개발 환경 세팅 (ts-node, nodemon 스크립트 포함)
+- any 타입 최소화, 인터페이스 및 타입 별칭 활용
+- declare로 req.user 등 타입 확장
+- Controller, Service, Repository 계층 구조로 코드 리팩토링
+- DTO 활용해 계층 간 데이터 전달 명확화
