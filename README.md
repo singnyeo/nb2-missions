@@ -32,3 +32,12 @@
 - declare로 req.user 등 타입 확장
 - Controller, Service, Repository 계층 구조로 코드 리팩토링
 - DTO 활용해 계층 간 데이터 전달 명확화
+
+### 5️⃣ [SQL 기초 문법 실습 및 데이터 분석 쿼리 작성](./05-sql-practice/README.md)
+> PostgreSQL 기반의 실전형 데이터셋으로 SQL 기본 문법 및 고급 분석 쿼리 작성 연습  
+- psql, pgAdmin4 환경에서 데이터베이스 연결 및 초기 세팅  
+- SELECT, WHERE, ORDER BY, GROUP BY 등 기본 SQL 문법 실습  
+- OFFSET 기반 및 커서 기반 페이지네이션 쿼리 구현  
+- JOIN, 집계 함수(SUM, COUNT) 활용한 통계 쿼리 작성  
+- 날짜별 주문 수량, 피자별 매출 등 실전 분석 쿼리 연습  
+- ORM 없이 순수 SQL로 데이터 관계 및 흐름 이해 강화
