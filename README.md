@@ -41,3 +41,12 @@
 - JOIN, 집계 함수(SUM, COUNT) 활용한 통계 쿼리 작성  
 - 날짜별 주문 수량, 피자별 매출 등 실전 분석 쿼리 연습  
 - ORM 없이 순수 SQL로 데이터 관계 및 흐름 이해 강화
+
+## 6️⃣ [SQL 스키마 설계 및 실전 쿼리 실습](./06-sql-panda-market/README.md)
+> 간단한 커뮤니티/마켓 서비스 구조 기반으로 SQL 스키마를 직접 설계하고, 주요 기능에 대한 쿼리 작성 실습  
+- users, products, posts, comments 등 핵심 테이블 직접 설계 및 관계 구성  
+- ERD 작성 및 다형성 테이블 구조 구성 (likes, comments)  
+- SELECT, INSERT, UPDATE, DELETE 등 기본 SQL 문법 실습  
+- OFFSET 기반, 커서 기반 페이지네이션 구현  
+- JOIN, LIKE 검색, GROUP BY + COUNT로 좋아요 수 포함 조회  
+- ORM 없이 순수 SQL로 전체 데이터 흐름과 관계형 모델 설계 역량 강화
