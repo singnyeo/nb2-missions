@@ -50,3 +50,13 @@
 - OFFSET 기반, 커서 기반 페이지네이션 구현  
 - JOIN, LIKE 검색, GROUP BY + COUNT로 좋아요 수 포함 조회  
 - ORM 없이 순수 SQL로 전체 데이터 흐름과 관계형 모델 설계 역량 강화
+
+## 7️⃣ [실시간 알림 기능 구현 및 Socket.IO 통합](./07-web-socket/README.md)  
+> 좋아요한 상품 가격 변동 및 게시글 댓글에 대한 실시간 알림 기능 구현  
+- Notification 모델 추가 및 Prisma 스키마 수정  
+- NotificationRepository, NotificationService, NotificationController 구현  
+- ProductService에서 가격 변동 시 알림 생성 및 실시간 전송  
+- CommentService에서 댓글 작성 시 게시글 작성자에게 알림 생성 및 실시간 전송  
+- Socket.IO를 활용한 유저별 room join 및 실시간 알림 수신 기능 구현  
+- Notification 조회, 안 읽은 알림 개수 확인, 읽음 처리 API 구현  
+- 기존 상품/게시글/댓글 CRUD와 통합, 권한 검증 적용
